@@ -1,0 +1,57 @@
+--- /tmp/bcm2-utils/profiledef.c	2023-03-28 01:27:50.233202939 -0500
++++ /home/user/bcm2-utils_noborrar/router_enc_gs/bcm2_new/bcm2-utils/profiledef.c	2023-03-28 01:16:35.312517353 -0500
+@@ -1216,6 +1216,54 @@
+ 			},
+ 		},
+ 	},
++		{
++        .name = "TCG220",
++        .pretty = "Askey TCG220-46",
++        .arch = BCM2_3383,
++        .pssig = 0xd257,
++        .baudrate = 115200,
++        .magic = {
++			{ 0x83f8bd64, "2.4.0mp1" },
++		},
++        .spaces = {
++			{
++				.name = "ram",
++				.min = 0x80000000,
++				.size = 128 * 1024 * 1024,
++				.parts = {
++					{ "bootloader", 0x83f80000, 0x020000 },
++				}
++			},
++			{
++				.name = "flash",
++				.size = 32 * 1024 * 1024,
++				.parts = {
++					{ "bootloader", 0x0000000, 0x010000 },
++					{ "permnv",     0x0010000, 0x010000, "perm" },
++					{ "image1",     0x0020000, 0x8e0000 },
++					{ "image2",     0x0900000, 0x8e0000 },
++					{ "dynnv",      0x11e0000, 0x020000, "dyn" },
++					//{ "linux",      0x1200000, 0x800000 },
++					//{ "linuxapps",      0x1a00000, 0x400000 },
++					//{ "dhtml",      0x1e00000, 0x200000 }
++				}
++			},
++		},
++        .versions = {
++			{
++				.intf = BCM2_INTF_BFC,
++				.rwcode = 0x80002000,
++				.options = {
++					BCM2_VAL_STR("bfc:su_password", "A$KD600"),
++				},
++			},
++			{
++				.version = "C13.181127.02",
++				.intf = BCM2_INTF_BFC,
++				.magic = { 0x810eb7d4, "C13.181127.02" },
++			},
++		}
++    },
+ 	// end marker
+ 	{ .name = "" },
+ };
